@@ -24,40 +24,34 @@ namespace Caesar
 
         private void button2_Click(object sender, EventArgs e)
         {
-            int shift = 0;
-            try
+            var key = textBox3.Text;
+
+            if(!key.All(ch => Vigenere.c_alphabet.Contains(ch)))
             {
-                shift = int.Parse(textBox3.Text);
-            }
-            catch
-            {
-                MessageBox.Show("Сдвигом должно быть целое число");
+                MessageBox.Show("Ключ должен состоять из символов русского алфавита");
+                return;
             }
 
-            textBox2.Text = Caesar.Encode(textBox1.Text, shift);
+            textBox2.Text = Vigenere.Encode(textBox1.Text, key);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            int key = 0;
-            textBox2.Text = Caesar.Hack(textBox1.Text, ref key);
+            var key = "";
 
-            textBox3.Text = key.ToString();
+            textBox2.Text = Vigenere.Hack(textBox1.Text, ref key);
+            textBox3.Text = key;
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            int shift = 0;
-            try
+            var key = textBox3.Text;
+            if (!key.All(ch => Vigenere.c_alphabet.Contains(ch)))
             {
-                shift = int.Parse(textBox3.Text);
+                MessageBox.Show("Ключ должен состоять из символов русского алфавита");
+                return;
             }
-            catch
-            {
-                MessageBox.Show("Сдвигом должно быть целое число");
-            }
-
-            textBox2.Text = Caesar.Encode(textBox1.Text, -shift);
+            textBox2.Text = Vigenere.Encode(textBox1.Text, textBox3.Text, true);
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -68,6 +62,11 @@ namespace Caesar
         private void button5_Click(object sender, EventArgs e)
         {
             textBox2.Text = "";
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
